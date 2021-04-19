@@ -27,7 +27,11 @@ final class MonthCell: UICollectionViewCell {
         return formatter.string(from: date)
     }
     
-    private var monthStyle = MonthStyle()
+    private var monthStyle = MonthStyle() {
+        didSet {
+            self.dateLabel.font = monthStyle.fontNameDate
+        }
+    }
     private var allDayStyle = AllDayStyle()
     
     private lazy var panGesture: UIPanGestureRecognizer = {
@@ -362,9 +366,9 @@ final class MonthCell: UICollectionViewCell {
             
             let formattedString: String
             if !monthStyle.isHiddenDotInTitle {
-                formattedString = "\(bullet) \(text)\n"
+                formattedString = "\(bullet) \(text) "
             } else {
-                formattedString = "\(text)\n"
+                formattedString = "\(text) "
             }
             let attributedString = NSMutableAttributedString(string: formattedString)
             let string: NSString = NSString(string: formattedString)
