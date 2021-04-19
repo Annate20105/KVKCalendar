@@ -90,8 +90,13 @@ final class MonthCell: UICollectionViewCell {
             for (idx, event) in events.enumerated() {
                 let width = frame.width - 10
                 let count = idx + 1
-//                let label = UILabel(frame: CGRect(x: 5, y: 5 + dateLabel.bounds.height + height * CGFloat(idx), width: width, height: height))
-                let label = UILabel(frame: CGRect(x: 5 + width * CGFloat(idx), y: 5 + dateLabel.bounds.height , width: width, height: height))
+                let label = UILabel()
+                if  count > titlesCount {
+                    label.frame = CGRect(x: 5, y: 5 + dateLabel.bounds.height + height * CGFloat(idx), width: width, height: height)
+                } else {
+                    label.frame = CGRect(x: 5 + 20 * CGFloat(idx), y: 5 + dateLabel.bounds.height , width: width, height: height)
+                }
+
                 label.isUserInteractionEnabled = true
                 
                 if count > titlesCount {
