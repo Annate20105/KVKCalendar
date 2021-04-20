@@ -295,7 +295,7 @@ extension TimelineView {
         let frame = CGRect(x: pointX, y: 0, width: style.timeline.widthLine, height: scrollView.contentSize.height)
         let line = VerticalLineView(frame: frame)
         line.tag = tagVerticalLine
-        line.backgroundColor = .systemGray
+        line.backgroundColor = style.month.colorSeparator
         line.isHidden = !style.week.showVerticalDayDivider
         line.date = date
         return line
