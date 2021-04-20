@@ -87,7 +87,7 @@ class DayCell: UICollectionViewCell {
             guard nowDate.month != day.date?.month else {
                 // remove the selection if the current date (for the day) does not match the selected one
                 if selectDate.day != nowDate.day, day.date?.day == nowDate.day, day.date?.year == nowDate.year {
-                    dateLabel.textColor = style.headerScroll.colorBackgroundCurrentDate
+                    dateLabel.textColor = style.headerScroll.colorSelectDate
                     dotView.backgroundColor = .clear
                     isSelected = false
                 }
