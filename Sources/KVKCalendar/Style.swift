@@ -388,6 +388,8 @@ public struct ListViewStyle {
     public var fontTitle: UIFont = .systemFont(ofSize: 17)
     public var heightHeaderView: CGFloat = 50
     public var backgroundColor: UIColor = .white
+    public var separatorColor: UIColor = .clear
+    public var cellBackgroundColor: UIColor = .clear
 }
 
 extension Style {
@@ -606,6 +608,8 @@ extension ListViewStyle: Equatable {
             && compare(\.fontTitle)
             && compare(\.heightHeaderView)
             && compare(\.backgroundColor)
+            && compare(\.separatorColor)
+            && compare(\.cellBackgroundColor)
     }
     
 }

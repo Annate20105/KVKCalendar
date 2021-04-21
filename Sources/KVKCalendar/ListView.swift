@@ -23,7 +23,7 @@ final class ListView: UIView, CalendarSettingProtocol {
     private var params: Parameters
     
     private lazy var tableView: UITableView = {
-        let table = UITableView()
+        var table = UITableView(frame: .zero, style: .grouped)
         table.tableFooterView = UIView()
         table.dataSource = self
         table.delegate = self
@@ -55,6 +55,9 @@ final class ListView: UIView, CalendarSettingProtocol {
         backgroundColor = style.backgroundColor
         tableView.backgroundColor = style.backgroundColor
         tableView.frame = CGRect(origin: .zero, size: frame.size)
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
+        tableView.separatorColor = style.separatorColor
+
         addSubview(tableView)
     }
     
@@ -100,6 +103,7 @@ extension ListView: UITableViewDataSource, UITableViewDelegate {
             return tableView.dequeueCell(indexPath: indexPath) { (cell: ListViewCell) in
                 cell.txt = event.textForList
                 cell.dotColor = event.color?.value
+                cell.cellBackgroundColor = style.cellBackgroundColor
             }
         }
     }
@@ -112,6 +116,14 @@ extension ListView: UITableViewDataSource, UITableViewDelegate {
             return tableView.dequeueView { (view: ListViewHeader) in
                 view.title = params.data.titleOfHeader(section: section)
             }
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        if let headerView = params.dataSource?.dequeueFooter( type: .list, view: tableView, indexPath: IndexPath(row: 0, section: section)) as? UIView {
+            return headerView
+        } else {
+            return nil
         }
     }
     

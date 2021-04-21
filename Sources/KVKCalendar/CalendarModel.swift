@@ -299,7 +299,11 @@ public protocol CalendarDataSource: AnyObject {
     
     /// Use this method to add a header view
     func dequeueHeader<T: UIScrollView>(date: Date?, type: CalendarType, view: T, indexPath: IndexPath) -> KVKCalendarHeaderProtocol?
+    
+    /// Use this method to add a footer view
+    func dequeueFooter<T: UIScrollView>(type: CalendarType, view: T, indexPath: IndexPath) -> KVKCalendarHeaderProtocol?
 }
+
 
 public extension CalendarDataSource {
     func willDisplayEventViewer(date: Date, frame: CGRect) -> UIView? { return nil }
@@ -327,6 +331,9 @@ public extension CalendarDataSource {
     func dequeueCell<T: UIScrollView>(dateParameter: DateParameter, type: CalendarType, view: T, indexPath: IndexPath) -> KVKCalendarCellProtocol? { return nil }
     
     func dequeueHeader<T: UIScrollView>(date: Date?, type: CalendarType, view: T, indexPath: IndexPath) -> KVKCalendarHeaderProtocol? { return nil }
+    
+    /// Use this method to add a footer view
+    func dequeueFooter<T: UIScrollView>(type: CalendarType, view: T, indexPath: IndexPath) -> KVKCalendarHeaderProtocol? {return nil}
 }
 
 // MARK: - Delegate protocol

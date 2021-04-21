@@ -35,6 +35,13 @@ final class ListViewCell: UITableViewCell {
         }
     }
     
+    var cellBackgroundColor: UIColor? {
+        didSet {
+            self.backgroundColor = cellBackgroundColor
+            self.contentView.backgroundColor = cellBackgroundColor
+        }
+    }
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(txtLabel)
@@ -58,6 +65,7 @@ final class ListViewCell: UITableViewCell {
         let leftTxt = txtLabel.leftAnchor.constraint(equalTo: dotView.rightAnchor, constant: 10)
         let rightTxt = txtLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -15)
         NSLayoutConstraint.activate([topTxt, bottomTxt, leftTxt, rightTxt])
+
     }
     
     required init?(coder: NSCoder) {
