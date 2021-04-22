@@ -297,6 +297,9 @@ public protocol CalendarDataSource: AnyObject {
     /// Use this method to add a custom day cell
     func dequeueCell<T: UIScrollView>(dateParameter: DateParameter, type: CalendarType, view: T, indexPath: IndexPath) -> KVKCalendarCellProtocol?
     
+    /// Use this method to add a custom day cell
+    func dequeueCell<T: UIScrollView>(event: Event, type: CalendarType, view: T, indexPath: IndexPath) -> KVKCalendarCellProtocol?
+    
     /// Use this method to add a header view
     func dequeueHeader<T: UIScrollView>(date: Date?, type: CalendarType, view: T, indexPath: IndexPath) -> KVKCalendarHeaderProtocol?
     
@@ -329,6 +332,9 @@ public extension CalendarDataSource {
     func dequeueListCell(date: Date?, tableView: UITableView, indexPath: IndexPath) -> UITableViewCell? { return nil }
     
     func dequeueCell<T: UIScrollView>(dateParameter: DateParameter, type: CalendarType, view: T, indexPath: IndexPath) -> KVKCalendarCellProtocol? { return nil }
+    
+    /// Use this method to add a custom day cell
+    func dequeueCell<T: UIScrollView>(event: Event, type: CalendarType, view: T, indexPath: IndexPath) -> KVKCalendarCellProtocol?  { return nil }
     
     func dequeueHeader<T: UIScrollView>(date: Date?, type: CalendarType, view: T, indexPath: IndexPath) -> KVKCalendarHeaderProtocol? { return nil }
     
