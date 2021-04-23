@@ -31,7 +31,7 @@ extension CalendarView {
             authForSystemCalendars()
         }
         
-        let events = dataSource?.eventsForCalendar(systemEvents: systemEvents) ?? []
+        let events = dataSource?.eventsForCalendar(systemEvents: systemEvents).sorted(by: {$0.start < $1.start}) ?? []
         
         switch type {
         case .day:

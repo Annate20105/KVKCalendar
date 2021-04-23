@@ -36,15 +36,26 @@ final class ListViewData {
     func reloadEvents(_ events: [Event]) {
         sections = events.reduce([], { (acc, event) -> [SectionListView] in
             var accTemp = acc
-            
-            guard let idx = accTemp.firstIndex(where: { $0.date.year == event.start.year && $0.date.month == event.start.month && $0.date.day == event.start.day }) else {
+            print(event.start)
+            print( event.end)
+
+            if let idx = accTemp.firstIndex(where: { $0.date.year == event.start.year && $0.date.month == event.start.month && ($0.date.day == event.start.day || $0.date.day == event.end.day)}) {
+                
+                if let idx = accTemp.firstIndex(where: { $0.date.year == event.start.year && $0.date.month == event.start.month && $0.date.day == event.start.day}) {
+                    accTemp[idx].events.append(event)
+                } else if let idx = accTemp.firstIndex(where: { $0.date.year == event.start.year && $0.date.month == event.start.month && $0.date.day == event.end.day}) {
+                    accTemp[idx].events.append(event)
+                } else {
+                    accTemp += [SectionListView(date: event.end, events: [event])]
+                }
+            } else {
                 accTemp += [SectionListView(date: event.start, events: [event])]
-                accTemp = accTemp.sorted(by: { $0.date < $1.date })
-                return accTemp
+                if event.start.day != event.end.day {
+                    accTemp += [SectionListView(date: event.end, events: [event])]
+                }
             }
-            
-            accTemp[idx].events.append(event)
-            accTemp[idx].events = accTemp[idx].events.sorted(by: { $0.start < $1.start })
+            accTemp = accTemp.sorted(by: { $0.date < $1.date })
+
             return accTemp
         })
     }
