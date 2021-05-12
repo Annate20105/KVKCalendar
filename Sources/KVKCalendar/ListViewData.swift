@@ -36,9 +36,6 @@ final class ListViewData {
     func reloadEvents(_ events: [Event]) {
         sections = events.reduce([], { (acc, event) -> [SectionListView] in
             var accTemp = acc
-            print(event.start)
-            print( event.end)
-
             if let idx = accTemp.firstIndex(where: { $0.date.year == event.start.year && $0.date.month == event.start.month && ($0.date.day == event.start.day || $0.date.day == event.end.day)}) {
                 
                 if let idx = accTemp.firstIndex(where: { $0.date.year == event.start.year && $0.date.month == event.start.month && $0.date.day == event.start.day}) {

@@ -28,6 +28,7 @@ final class TimelineView: UIView, EventDateProtocol {
     let timeLabelFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm"
+        formatter.locale = Locale(identifier: "en_US_POSIX")
         return formatter
     }()
     
