@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct DayData {
-    let days: [Day]
-    var date: Date
-    var events: [Event] = []
+public struct DayData {
+    public let days: [Day]
+    public var date: Date
+    public var events: [Event] = []
     
-    init(data: CalendarData, startDay: StartDayType) {
+    public init(data: CalendarData, startDay: StartDayType) {
         self.date = data.date
         var tempDays = data.months.reduce([], { $0 + $1.days })
         let startIdx = tempDays.count > 7 ? tempDays.count - 7 : tempDays.count

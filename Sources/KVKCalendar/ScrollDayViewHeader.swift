@@ -7,18 +7,27 @@
 
 import UIKit
 
-final class ScrollDayHeaderView: UIView {
+public final class ScrollDayHeaderView: UIView {
     
-    var didTrackScrollOffset: ((CGFloat?, Bool) -> Void)?
-    var didSelectDate: ((Date?, CalendarType) -> Void)?
-    var didChangeDay: ((TimelinePageView.SwitchPageType) -> Void)?
+    public var didTrackScrollOffset: ((CGFloat?, Bool) -> Void)?
+    public var didSelectDate: ((Date?, CalendarType) -> Void)?
+    public var didChangeDay: ((TimelinePageView.SwitchPageType) -> Void)?
     
-    struct Parameters {
-        let frame: CGRect
-        let days: [Day]
-        var date: Date
-        let type: CalendarType
-        var style: Style
+    public struct Parameters {
+        public let frame: CGRect
+        public let days: [Day]
+        public var date: Date
+        public let type: CalendarType
+        public var style: Style
+        
+        public init(frame:CGRect, days:[Day], date: Date, type: CalendarType, style: Style) {
+            self.frame = frame
+            self.date = date
+            self.days = days
+            self.type = type
+            self.style = style
+        }
+         
     }
     
     private var params: Parameters
@@ -82,7 +91,7 @@ final class ScrollDayHeaderView: UIView {
         }
     }
     
-    init(parameters: Parameters) {
+    public init(parameters: Parameters) {
         self.params = parameters
         super.init(frame: parameters.frame)
         setUI()
@@ -104,7 +113,7 @@ final class ScrollDayHeaderView: UIView {
         collectionView.contentOffset.x = lastContentOffset - transform.tx
     }
     
-    func setDate(_ date: Date, isDelay: Bool = true) {
+    public func setDate(_ date: Date, isDelay: Bool = true) {
         self.date = date
         scrollToDate(date, isAnimate: isAnimate, isDelay: isDelay)
         collectionView.reloadData()
@@ -333,15 +342,16 @@ extension ScrollDayHeaderView: CalendarSettingProtocol {
 }
 
 extension ScrollDayHeaderView: UICollectionViewDataSource {
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
+    
+    public func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return days.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let day = days[indexPath.row]
         
         if let cell = dataSource?.dequeueCell(dateParameter: .init(date: day.date), type: type, view: collectionView, indexPath: indexPath) as? UICollectionViewCell {
@@ -366,7 +376,7 @@ extension ScrollDayHeaderView: UICollectionViewDataSource {
 }
 
 extension ScrollDayHeaderView: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let translation = scrollView.panGestureRecognizer.translation(in: collectionView)
         
         if trackingTranslation != translation.x {
@@ -375,7 +385,7 @@ extension ScrollDayHeaderView: UICollectionViewDelegate, UICollectionViewDelegat
         }
     }
     
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+    public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         let translation = scrollView.panGestureRecognizer.translation(in: collectionView)
         trackingTranslation = translation.x
         
@@ -396,11 +406,11 @@ extension ScrollDayHeaderView: UICollectionViewDelegate, UICollectionViewDelegat
         lastContentOffset = targetOffset.x
     }
     
-    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+    public func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         lastContentOffset = scrollView.contentOffset.x
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch type {
         case .day:
             guard date != days[indexPath.row].date, let dateNew = days[indexPath.row].date else { return }
@@ -420,7 +430,7 @@ extension ScrollDayHeaderView: UICollectionViewDelegate, UICollectionViewDelegat
         collectionView.reloadData()
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.frame.width / 7
         let height = collectionView.frame.height
         return CGSize(width: width, height: height)

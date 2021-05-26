@@ -7,9 +7,9 @@
 
 import UIKit
 
-final class TimelinePageView: UIView {
+public final class TimelinePageView: UIView {
     
-    enum SwitchPageType: Int {
+    public enum SwitchPageType: Int {
         case next, previous
         
         var direction: UIPageViewController.NavigationDirection {
@@ -124,14 +124,14 @@ final class TimelinePageView: UIView {
 
 extension TimelinePageView: UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     
-    func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
+    public func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
         guard let vc = pendingViewControllers.first as? TimelineContainerVC, let contentOffset = timelineView?.contentOffset else { return }
         
         let pendingTimelineView = pages[vc.index]
         pendingTimelineView?.contentOffset = contentOffset
     }
     
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+    public func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard var newIndex = (viewController as? TimelineContainerVC)?.index else { return nil }
         
         newIndex -= 1
@@ -142,7 +142,7 @@ extension TimelinePageView: UIPageViewControllerDataSource, UIPageViewController
         return container
     }
     
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+    public func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         guard var newIndex = (viewController as? TimelineContainerVC)?.index else { return nil }
         
         newIndex += 1
@@ -153,7 +153,7 @@ extension TimelinePageView: UIPageViewControllerDataSource, UIPageViewController
         return container
     }
     
-    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+    public func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         guard let index = (pageViewController.viewControllers?.first as? TimelineContainerVC)?.index, completed else { return }
                 
         let type: SwitchPageType

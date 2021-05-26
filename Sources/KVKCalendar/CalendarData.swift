@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CalendarData {
+public struct CalendarData {
     private let style: Style
     
     let boxCount = 42
@@ -15,7 +15,7 @@ struct CalendarData {
     var months = [Month]()
     var yearsCount = [Int]()
     
-    init(date: Date, years: Int, style: Style) {
+    public init(date: Date, years: Int, style: Style) {
         self.date = date
         self.style = style
         
@@ -160,7 +160,7 @@ struct Month {
     var days: [Day]
 }
 
-struct Day {
+public struct Day {
     let type: DayType
     var date: Date?
     var events: [Event]
